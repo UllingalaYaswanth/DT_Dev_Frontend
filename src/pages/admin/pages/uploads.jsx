@@ -524,7 +524,7 @@ const handleSubmit = async (e) => {
     return;
   }
 
-  const dbx = new Dropbox({ accessToken: 'sl.CBDgdKxg3qoQSiwVAxS5fXFjErKf9SXJIehBb0PGDZto1XbGjdK1Mj_lo0UZzo0LIF94oFM8nBvEcasyOMu-pXuqQg3Z-iHW2oJFv99h11xKKZKT53AqKaAZGZuyTM_ad6ODrLFKXph34MBSRmw9GpY' });
+  const dbx = new Dropbox({ accessToken: 'dropboxtoken' });
 
   // Create folder in Dropbox
   try {

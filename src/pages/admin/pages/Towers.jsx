@@ -87,7 +87,7 @@ const HandleOpen = (tower) => {
         { path: filePathForDropbox },
         {
           headers: {
-            Authorization: `Bearer ${"sl.CBIOiTU_N-KKskQGba6z-maD-jGIYOkOrz0UxFxgK4iPRVzaBfNYlK3tFwXSQ76TcKb-6Vv9tWz3sOVzppZBZ7pW5jhWbTuRuepr2k-LSy3D1FiEjps-F6ws3hynK-9EYK9AgljnOH1zJWcU1KjoL8M"}`, // Replace with your actual Dropbox access token
+            Authorization: `Bearer ${"dropboxtoken"}`, // Replace with your actual Dropbox access token
           },
         }
       );
