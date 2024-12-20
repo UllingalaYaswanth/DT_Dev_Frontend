@@ -1,0 +1,2 @@
+public/first.glb filter=lfs diff=lfs merge=lfs -text
+public/DamagedHelmet.glb filter=lfs diff=lfs merge=lfs -text

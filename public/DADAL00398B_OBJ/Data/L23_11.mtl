@@ -1,0 +1,13 @@
+newmtl L23_11_0
+Ka 1 1 1
+Kd 1 1 1
+d 1
+Ns 0
+illum 1
+map_Kd L23_11_0.jpg
+newmtl L23_11_untextured
+Ka 0.501961 0.501961 0.501961
+Kd 0.501961 0.501961 0.501961
+d 1
+Ns 0
+illum 1
