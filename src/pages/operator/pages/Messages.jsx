@@ -79,7 +79,7 @@ export function Messages() {
       console.log(`Uploading ${fileName} to ${path}`);
 
       // Send file details to backend
-      const response = await fetch('http://13.235.82.152:5000/api/upload', {
+      const response = await fetch('http://15.206.148.249:5000/api/upload', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

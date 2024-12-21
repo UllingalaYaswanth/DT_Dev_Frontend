@@ -56,7 +56,7 @@ const HandleOpen = (tower) => {
     setError(null);
 
     try {
-      const apiUrl = `http://13.235.82.152:3000/api/upload/files/${siteId}`;
+      const apiUrl = `http://15.206.148.249:3000/api/upload/files/${siteId}`;
       const response = await axios.get(apiUrl, { params: { type: fileType } });
 
       if (response.data && Array.isArray(response.data.files)) {
@@ -103,7 +103,7 @@ const HandleOpen = (tower) => {
   useEffect(() => {
     const fetchDocuments = async () => {
       try {
-        const response = await axios.get("http://13.235.82.152:3000/api/form/antenna-layouts");
+        const response = await axios.get("http://15.206.148.249:3000/api/form/antenna-layouts");
         setDocuments(response.data);
       } catch (error) {
         console.error("Error fetching documents:", error);
