@@ -8,7 +8,7 @@ const Inspection = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/form/ins-get'); // Your API endpoint here
+        const response = await fetch('http://13.235.82.152:3000/api/form/ins-get'); // Your API endpoint here
         const result = await response.json();
         
         console.log('API Response:', result);  // Log the entire response to check its structure

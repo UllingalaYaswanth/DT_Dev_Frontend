@@ -20,7 +20,7 @@ export function SubSection1({ goBack, towerDetails  }) {
   useEffect(() => {
     const fetchModelFiles = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/models?email=${userEmail}`);
+        const response = await fetch(`http://13.235.82.152:3000/api/models?email=${userEmail}`);
         const files = await response.json();
         setModelFiles(files);
         console.log("backend",files)

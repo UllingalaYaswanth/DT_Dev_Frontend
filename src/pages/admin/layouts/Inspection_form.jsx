@@ -122,7 +122,7 @@
 //     e.preventDefault();
 
 //     try {
-//       const response = await fetch('http://localhost:3000/api/form/ins-submit', {
+//       const response = await fetch('http://13.235.82.152:3000/api/form/ins-submit', {
 //         method: 'POST',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -445,7 +445,7 @@ const Uploads = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:3000/api/form/ins-submit', {
+      const response = await fetch('http://13.235.82.152:3000/api/form/ins-submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

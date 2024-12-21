@@ -15,7 +15,7 @@ function Client_Profits() {
   useEffect(() => {
     const fetchOperators = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/form/ins-get');
+        const response = await axios.get('http://13.235.82.152:3000/api/form/ins-get');
         
         // console.log("API Response:", response.data); // Log the full response for debugging
 
