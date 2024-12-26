@@ -41,26 +41,41 @@ const StatisticsCards = () => {
       try {
         const response = await axios.get('https://dt-dev-backend.onrender.com/api/form/ins-get');
         
-        // console.log("API Response:", response.data);  // Log the full response for debugging
+        console.log("API Response:", response.data);  // Log the full response for debugging
         
         // Create a Set to store unique operator names
         const operators = new Set();
         // console.log("operartor:",operators)
 
         // Loop through the data to extract operators
+        // response.data.forEach(item => {
+        //   if (item.operators && Array.isArray(item.operators)) {
+        //     item.operators.forEach(operator => {
+        //       // Check if the operator field exists and is not empty
+        //       if (operator.operator && operator.operator.trim() !== '') {
+        //         operators.add(operator.operator);  // Add operator to the Set
+        //       }
+        //     });
+        //   }
+        // });
+
         response.data.forEach(item => {
           if (item.operators && Array.isArray(item.operators)) {
-            item.operators.forEach(operator => {
-              // Check if the operator field exists and is not empty
-              if (operator.operator && operator.operator.trim() !== '') {
-                operators.add(operator.operator);  // Add operator to the Set
+            item.operators.forEach(operatorItem => {
+              // Loop through __parentArray to get operator names
+              if (operatorItem.__parentArray && Array.isArray(operatorItem.__parentArray)) {
+                operatorItem.__parentArray.forEach(operator => {
+                  if (operator.operator && operator.operator.trim() !== '') {
+                    operators.add(operator.operator);  // Add operator to the Set
+                  }
+                });
               }
             });
           }
         });
-
         // Set the unique operators in state
         setUniqueOperators(operators);
+        console.log("Unique Operators:", Array.from(operators));  // Log the unique operators for debugging
         // console.log("Unique Operators:", Array.from(operators));  // Log the unique operators for debugging
 
       } catch (error) {
