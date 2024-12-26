@@ -20,7 +20,7 @@ export function SubSection1({ goBack, towerDetails  }) {
   useEffect(() => {
     const fetchModelFiles = async () => {
       try {
-        const response = await fetch(`http://15.206.148.249:3000/api/models?email=${userEmail}`);
+        const response = await fetch(`https://dt-dev-backend.onrender.com/api/models?email=${userEmail}`);
         const files = await response.json();
         setModelFiles(files);
         console.log("backend",files)

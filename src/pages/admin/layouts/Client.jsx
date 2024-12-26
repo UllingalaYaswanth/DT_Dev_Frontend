@@ -13,7 +13,7 @@ function Client() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://15.206.148.249:3000/api/form/ins-get'); // Adjust to your API endpoint
+        const response = await axios.get('https://dt-dev-backend.onrender.com/api/form/ins-get'); // Adjust to your API endpoint
 
         // Process the data to create a series and labels
         const data = response.data;

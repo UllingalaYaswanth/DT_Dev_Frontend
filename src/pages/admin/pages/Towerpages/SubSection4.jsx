@@ -12,7 +12,7 @@ const SubSection4 = ({ towerDetails }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://15.206.148.249:3000/api/form/ins-get'); // Your API endpoint here
+        const response = await fetch('https://dt-dev-backend.onrender.com/api/form/ins-get'); // Your API endpoint here
         const result = await response.json();
         console.log(result);
         if (response.ok) {
@@ -217,7 +217,7 @@ export default SubSection4;
 //   useEffect(() => {
 //     const fetchData = async () => {
 //       try {
-//         const response = await fetch('http://15.206.148.249:3000/api/form/ins-get'); // Your API endpoint here
+//         const response = await fetch('https://dt-dev-backend.onrender.com/api/form/ins-get'); // Your API endpoint here
 //         const result = await response.json();
 //         console.log(result);
 //         if (response.ok) {
@@ -461,7 +461,7 @@ export default SubSection4;
 //     useEffect(() => {
 //       const fetchForms = async () => {
 //         try {
-//           const response = await fetch("http://15.206.148.249:3000/api/form/ins-get");
+//           const response = await fetch("https://dt-dev-backend.onrender.com/api/form/ins-get");
 //           if (!response.ok) {
 //             throw new Error("Failed to fetch form data");
 //           }

@@ -11,7 +11,7 @@ export function Home() {
   useEffect(() => {
     const fetchDocuments = async () => {
       try {
-        const response = await axios.get('http://15.206.148.249:3000/api/form/antenna-layouts');
+        const response = await axios.get('https://dt-dev-backend.onrender.com/api/form/antenna-layouts');
         // Assuming response.data is an array of documents with a timestamp field
         const sortedDocuments = response.data.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
         const latestDocuments = sortedDocuments.slice(0, 10);

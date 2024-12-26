@@ -122,7 +122,7 @@
 //     e.preventDefault();
 
 //     try {
-//       const response = await fetch('http://15.206.148.249:3000/api/form/ins-submit', {
+//       const response = await fetch('https://dt-dev-backend.onrender.com/api/form/ins-submit', {
 //         method: 'POST',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -445,7 +445,7 @@ const Uploads = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://15.206.148.249:3000/api/form/ins-submit', {
+      const response = await fetch('https://dt-dev-backend.onrender.com/api/form/ins-submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

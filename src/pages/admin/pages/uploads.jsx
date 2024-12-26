@@ -595,7 +595,7 @@ const handleSubmit = async (e) => {
 
   // Save paths in backend
   try {
-    const response = await fetch('http://15.206.148.249:3000/api/upload/save-path', {
+    const response = await fetch('https://dt-dev-backend.onrender.com/api/upload/save-path', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ tags, files: filesToSend }),
@@ -829,7 +829,7 @@ const handleSubmit = async (e) => {
   }
   
   try {
-      const response = await axios.post('http://15.206.148.249:3000/api/form/submit', formData, {
+      const response = await axios.post('https://dt-dev-backend.onrender.com/api/form/submit', formData, {
           headers: { 'Content-Type': 'multipart/form-data' }
       });
       console.log('Data submitted successfully:', response.data);
