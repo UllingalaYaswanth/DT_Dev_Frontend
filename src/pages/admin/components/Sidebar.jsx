@@ -29,7 +29,7 @@ function Sidebar() {
     { id: 1, path: '/admin/home/', name: "Dashboard", icon: LuBox },
     { id: 2, path: '/admin/home/towers', name: "Towers", icon: LuUser },
     { id: 3, path: '/admin/home/uploads', name: "Uploads", icon: LuMessageSquare },
-    { id: 4, path: '/admin/home/inspection', name: "Inspection", icon: LuCalendar },
+    // { id: 4, path: '/admin/home/inspection', name: "Inspection", icon: LuCalendar },
     { id: 5, path: '/admin/home/locations', name: "Locations", icon: LuBox },
   ];
 
