@@ -255,10 +255,11 @@
 // }
 
 // export default Client_Profits;
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ApexCharts from 'apexcharts';
-import chroma from 'chroma-js'; // Import chroma.js for dynamic color generation
+import chroma from 'chroma-js';
 
 function Client_Profits() {
   const [chartData, setChartData] = useState({

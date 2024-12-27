@@ -16,6 +16,8 @@
     "@material-tailwind/react": "^2.1.10",
     "@mui/icons-material": "^6.1.8",
     "@mui/material": "^6.1.5",
+    "@react-three/drei": "^9.120.4",
+    "@react-three/fiber": "^8.17.10",
     "apexcharts": "^3.51.0",
     "axios": "^1.7.7",
     "chroma-js": "^3.1.2",
