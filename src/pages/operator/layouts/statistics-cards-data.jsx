@@ -71,7 +71,7 @@ import axios from 'axios';
 
 const StatisticsCard = ({ color, icon: Icon, title, value }) => {
   return (
-    <div className={`bg-[#dbbc87] text-gray-800 flex justify-between items-center p-4 rounded-lg shadow-md border border-gray-100`}>
+    <div className={`bg-[#B1B1B1] text-gray-800 flex justify-between items-center p-4 rounded-lg shadow-md border border-gray-100`}>
       <Icon className="h-6 w-6 mb-2" aria-hidden="true" />
       <div className='text-end'>
         <h2 className="text-lg font-semibold">{title}</h2>

@@ -5,7 +5,7 @@ function Header() {
   const userEmail = localStorage.getItem('userEmail')
   console.log("header:",userEmail)
   return (
-    <div className='flex justify-between items-center p-4 bg-[#4C2E46] m-2 mt-3  rounded-xl shadow-sm text-white'>
+    <div className='flex justify-between items-center p-4 bg-[#444444] m-2 mt-3  rounded-xl shadow-sm text-white'>
       <div className=''>
         <h1 className='text-xs'>Welcome Back!</h1>
         {
@@ -18,7 +18,7 @@ function Header() {
         }
         
       </div>
-      <div className='flex items-center space-x-5'>
+      {/* <div className='flex items-center space-x-5'>
         <div className='hidden md:flex'>
         
         </div>
@@ -32,7 +32,7 @@ function Header() {
         </div>
         </div>
         
-      </div>
+      </div> */}
 
     </div>
   )
