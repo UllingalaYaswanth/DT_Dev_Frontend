@@ -80,7 +80,7 @@ export function Uploads() {
     setUploadAbortController(controller);
 
     try {
-      await axios.post("http://localhost:3000/api/files/upload", formData, {
+      await axios.post("http://dt-dev-backend.onrender.com/api/files/upload", formData, {
         headers: { "Content-Type": "multipart/form-data" },
         onUploadProgress: handleUploadProgress,
         signal: controller.signal,
