@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import image3 from '../img/RealityCapture_UYRdFrq7Xq.png';
+import image3 from '../../../img/RealityCapture_UYRdFrq7Xq.png';
 
 const SubSection4 = ({ towerDetails }) => {
   const [data, setData] = useState([]); // Initialize with an empty array

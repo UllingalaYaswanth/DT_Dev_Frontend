@@ -10,18 +10,13 @@ import {
   Card,
 } from "@material-tailwind/react";
 import axios from 'axios';
-import ExcelImage from '../../img/excel.webp';
-import ObjImage from '../../img/obj.png';
-import LazImage from '../../img/laz.avif';
-import KmlImage from '../../img/kml.webp';
-import PdfImage from '../../img/pdf.webp';
 
 import { useNavigate } from "react-router-dom";
 import CloseIcon from '@mui/icons-material/Close';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import Inspection_form from '../layouts/Inspection_form';
-import { Dropbox } from 'dropbox';
+import FileUploadDialog from "./FileUploadDialog"; 
 
 export function Uploads() {
   const [files, setFiles] = useState({
@@ -34,15 +29,96 @@ export function Uploads() {
   const [tags, setTags] = useState("");
   const [open, setOpen] = useState(false);
   const [selectedField, setSelectedField] = useState("");
+  const [message, setMessage] = useState("");
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [uploadSpeed, setUploadSpeed] = useState(0);
+  const [estimatedTime, setEstimatedTime] = useState(null);
+  const [uploadAbortController, setUploadAbortController] = useState(null);
 
+  const handleUploadProgress = (progressEvent) => {
+    if (progressEvent.total > 0) {
+      const percent = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+      setUploadProgress(percent);
+
+      const currentTime = Date.now();
+      const timeElapsed = (currentTime - uploadSpeed.startTime) / 1000;
+      const bytesUploaded = progressEvent.loaded - uploadSpeed.lastLoaded;
+      const speed = bytesUploaded / timeElapsed;
+      setUploadSpeed({
+        lastLoaded: progressEvent.loaded,
+        startTime: currentTime,
+        speed: speed,
+      });
+
+      const remainingBytes = progressEvent.total - progressEvent.loaded;
+      const remainingTime = remainingBytes / speed;
+      setEstimatedTime(Math.max(0, Math.round(remainingTime)));
+    }
+  };
+
+  const uploadFiles = async () => {
+    if (!tags || Object.values(files).every((file) => !file)) {
+      setMessage("Please provide a folder name and upload all required files.");
+      return;
+    }
+
+    setIsUploading(true);
+    setMessage("Uploading... Please wait.");
+    setUploadProgress(0);
+    setEstimatedTime(null);
+
+    const formData = new FormData();
+    formData.append("tags", tags);
+    Object.keys(files).forEach((fileType) => {
+      if (files[fileType]) {
+        formData.append(fileType, files[fileType]);
+      }
+    });
+
+    const controller = new AbortController();
+    setUploadAbortController(controller);
+
+    try {
+      await axios.post("http://localhost:3000/api/files/upload", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+        onUploadProgress: handleUploadProgress,
+        signal: controller.signal,
+        timeout: 30 * 60 * 1000,
+      });
+      setMessage("Files uploaded successfully!");
+      setUploadProgress(100);
+      setEstimatedTime(0);
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        setMessage("Upload cancelled.");
+      } else {
+        console.error(error);
+        setMessage("Error uploading files.");
+      }
+    } finally {
+      setIsUploading(false);
+      setFiles({
+        obj: null,
+        image: null,
+        excel: null,
+        pdf: null,
+        kml: null,
+      });
+      setTags("");
+      setTimeout(() => setOpen(false), 1000);
+    }
+  };
+
+  const cancelUpload = () => {
+    if (uploadAbortController) {
+      uploadAbortController.abort();
+      setMessage("Cancelling upload...");
+      setUploadProgress(0);
+    }
+  };
   
-  const cardData = [
-    { name: "Excel file", img: ExcelImage, fileType: "excel" },
-    { name: "Obj file", img: ObjImage, fileType: "obj" },
-    { name: "Laz file", img: LazImage, fileType: "laz" },
-    { name: "Kml file", img: KmlImage, fileType: "kml" },
-    { name: "Pdf file", img: PdfImage, fileType: "pdf" },
-  ];
+
 const [step, setStep] = useState(1);
 
 const nextStep = () => {
@@ -508,118 +584,14 @@ const handleOpen = (field) => {
   setOpen(true);
 };
 
-const handleFileChange = (e) => {
-  const { name, files: selectedFiles } = e.target;
-  setFiles((prevFiles) => ({
-    ...prevFiles,
-    [name]: selectedFiles,
-  }));
-};
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
 
-  if (!tags) {
-    alert('Please enter tags to name the folder.');
-    return;
-  }
-
-  const dbx = new Dropbox({ accessToken: 'dropboxtoken' });
-
-  // Create folder in Dropbox
-  try {
-    await dbx.filesCreateFolderV2({ path: `/${tags}` });
-  } catch (error) {
-    if (error.status !== 409) {
-      console.error('Error creating folder:', error);
-      return;
-    }
-  }
-
-  const filesToSend = [];
-
-  for (const [fileType, fileArray] of Object.entries(files)) {
-    if (fileArray) {
-      for (let file of fileArray) {
-        const filePath = `/${tags}/${file.name}`;
-
-        filesToSend.push({ filePath, fileType });
-
-        if (file.size > 150 * 1024 * 1024) {
-          try {
-            const sessionStart = await dbx.filesUploadSessionStart({
-              close: false,
-              contents: file.slice(0, 150 * 1024 * 1024),
-            });
-
-            let offset = 150 * 1024 * 1024;
-            const sessionId = sessionStart.result.session_id;
-
-            while (offset < file.size) {
-              const chunk = file.slice(offset, offset + 150 * 1024 * 1024);
-              await dbx.filesUploadSessionAppendV2({
-                cursor: { session_id: sessionId, offset },
-                close: false,
-                contents: chunk,
-              });
-              offset += chunk.size;
-            }
-
-            await dbx.filesUploadSessionFinish({
-              cursor: { session_id: sessionId, offset },
-              commit: { path: filePath, mode: { ".tag": "overwrite" } },
-            });
-            console.log(`${file.name} uploaded successfully to ${filePath}`);
-          } catch (error) {
-            console.error(`Error uploading ${file.name}:`, error);
-            alert(`Failed to upload ${file.name}`);
-            return;
-          }
-        } else {
-          try {
-            await dbx.filesUpload({
-              path: filePath,
-              contents: file,
-              mode: { ".tag": "overwrite" },
-            });
-            console.log(`${file.name} uploaded successfully to ${filePath}`);
-          } catch (error) {
-            console.error(`Error uploading ${file.name}:`, error);
-            alert(`Failed to upload ${file.name}`);
-            return;
-          }
-        }
-      }
-    }
-  }
-
-  // Save paths in backend
-  try {
-    const response = await fetch('https://dt-dev-backend.onrender.com/api/upload/save-path', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ tags, files: filesToSend }),
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to save file paths');
-    }
-
-    alert('All files uploaded successfully!');
-  } catch (error) {
-    console.error('Error saving file paths:', error);
-    alert('Failed to save file paths');
-  }
-};
 
 
   // excel data----------------------------------------------------------------------------------------
 
   const [excel,setExcel] = useState(false);
   const [inspection, setInspection] = useState(false)
-  const [uploading, setUploading] = useState(false);
-  const [error, setError] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate()
 
 
@@ -865,52 +837,21 @@ const handleSubmit = async (e) => {
         </Card.Body>
       </Card>
 
-     
+      <FileUploadDialog
+        open={open}
+        setOpen={setOpen}
+        uploadFiles={uploadFiles}
+        files={files}
+        setFiles={setFiles}
+        tags={tags}
+        setTags={setTags}
+        uploadProgress={uploadProgress}
+        estimatedTime={estimatedTime}
+        cancelUpload={cancelUpload}
+        isUploading={isUploading}
+        message={message}
+      />
       
-      <Dialog open={open} onClose={() => setOpen(false)} className="p-10 fixed insert-0 justify-center mx-[25%] my-[7%] w-[60%]">
-        <DialogHeader>
-          <Typography variant="h5" color="blue-gray">
-            Select Document Type
-          </Typography>
-        </DialogHeader>
-        <DialogBody>
-          <Input
-            type="text"
-            placeholder="Folder Name"
-            value={tags}
-            onChange={(e) => setTags(e.target.value)}
-            className="mb-4 rounded-lg"
-          />
-          <div className="grid gap-4 grid-cols-2 mt-10">
-            {cardData.map((card) => (
-              <Card key={card.fileType} onClick={() => handleOpen(card.fileType)}>
-                <Card.Body className="flex  items-center cursor-pointer">
-                  <img src={card.img} alt={card.name} className="w-8 h-8 mr-2 rounded-full" />
-                  {/* <Typography variant="body2" className="text-center">{card.name}</Typography> */}
-                  <label className="px-4 py-2  text-sm cursor-pointer bg-gray-700 text-white rounded-md">
-                    Choose File
-                    <input
-                      type="file"
-                      name={card.fileType}
-                      onChange={handleFileChange}
-                      className="hidden"
-                      multiple
-                    />
-                  </label>
-                </Card.Body>
-              </Card>
-            ))}
-          </div>
-        </DialogBody>
-        <DialogFooter>
-          <Button color="red" onClick={() => setOpen(false)}>
-            Close
-          </Button>
-          <Button color="blue" className="ms-3" onClick={handleSubmit}>
-            Upload
-          </Button>
-        </DialogFooter>
-      </Dialog>
     
    
 

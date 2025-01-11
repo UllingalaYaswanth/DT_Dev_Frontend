@@ -79,26 +79,18 @@ const HandleOpen = (tower) => {
   };
 
   const handleDownload = async (filePath) => {
-    fetchFiles(towerName);
+    console.log("file path", filePath);  // Log the file path to ensure it's correct
+    fetchFiles(towerName);  // Optional: Refresh files list if needed
+  
     try {
-      const filePathForDropbox = filePath.startsWith("/") ? filePath : `/${filePath}`;
-      const downloadLinkResponse = await axios.post(
-        "https://api.dropboxapi.com/2/files/get_temporary_link",
-        { path: filePathForDropbox },
-        {
-          headers: {
-            Authorization: `Bearer ${"dropboxtoken"}`, // Replace with your actual Dropbox access token
-          },
-        }
-      );
-
-      const downloadLink = downloadLinkResponse.data.link;
-      window.open(downloadLink, "_blank");
+      // Open the S3 URL directly in a new tab
+      window.open(filePath, "_blank");  // filePath is assumed to be the direct S3 URL
     } catch (error) {
       console.error("Error generating download link:", error);
       alert("Failed to download file.");
     }
   };
+
 
   useEffect(() => {
     const fetchDocuments = async () => {

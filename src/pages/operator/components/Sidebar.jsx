@@ -89,7 +89,7 @@ function Sidebar() {
     { id: 1, path: '/operator/home', name: "Dashboard", icon: LuBox },
     { id: 2, path: '/operator/home/towers', name: "Towers", icon: LuUser },
     // { id: 3, path: '/operator/home/uploads', name: "Uploads", icon: LuMessageSquare },
-    { id: 4, path: '/operator/home/projects', name: "Inspection", icon: LuCalendar },
+    // { id: 4, path: '/operator/home/projects', name: "Inspection", icon: LuCalendar },
     { id: 5, path: '/operator/home/locations', name: "Locations", icon: LuBox },
   ];
 

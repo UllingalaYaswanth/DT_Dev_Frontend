@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import tower_img from './img/icons8-radio-tower-48.png';
+import tower_img from '../../img/icons8-radio-tower-48.png';
 import downArrow from '../../../assets/images/down_arrow.png';
 
 const towersData = [
