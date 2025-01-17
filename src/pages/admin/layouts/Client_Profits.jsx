@@ -271,7 +271,7 @@ function Client_Profits() {
   useEffect(() => {
     const fetchOperators = async () => {
       try {
-        const response = await axios.get('https://dt-dev-backend.onrender.com/api/form/ins-get');
+        const response = await axios.get('https://dt-dev-backend.onrender.com/api/forms/ins-get');
         
         // Process the data to create a series and labels
         const data = response.data;

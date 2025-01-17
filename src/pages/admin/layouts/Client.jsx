@@ -278,7 +278,7 @@ function Client() {
     const fetchData = async () => {
       try {
         setLoading(true); // Set loading to true when starting fetch
-        const response = await axios.get('https://dt-dev-backend.onrender.com/api/form/ins-get'); // Adjust to your API endpoint
+        const response = await axios.get('https://dt-dev-backend.onrender.com/api/forms/ins-get'); // Adjust to your API endpoint
 
         // Process the data to create a series and labels
         const data = response.data;
