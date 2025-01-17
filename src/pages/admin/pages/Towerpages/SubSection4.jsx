@@ -151,7 +151,7 @@ const SubSection4 = ({ towerDetails }) => {
                         {activeSiteData.operators[activeOperator]?.annotations?.length > 0 ? (
                           activeSiteData.operators[activeOperator].annotations.map((annotation, index) => (
                             <div key={index}>
-                              <p>{annotation.image}</p>
+                              {/* <p>{annotation.image}</p> */}
                               {annotation.imagePath && (
                                 <img
                                   src={annotation.imagePath} // Access the correct imagePath key
