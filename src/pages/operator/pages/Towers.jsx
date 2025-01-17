@@ -103,7 +103,7 @@ const HandleOpen = (tower) => {
   useEffect(() => {
     const fetchDocuments = async () => {
       try {
-        const response = await axios.get("https://dt-dev-backend.onrender.com/api/form/antenna-layouts");
+        const response = await axios.get("https://dt-dev-backend.onrender.com/api/forms/antenna-layouts");
         setDocuments(response.data);
       } catch (error) {
         console.error("Error fetching documents:", error);

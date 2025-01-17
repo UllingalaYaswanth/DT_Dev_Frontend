@@ -48,7 +48,7 @@ export function Home() {
   useEffect(() => {
     const fetchDocuments = async () => {
       try {
-        const response = await axios.get('https://dt-dev-backend.onrender.com/api/form/antenna-layouts');
+        const response = await axios.get('https://dt-dev-backend.onrender.com/api/forms/antenna-layouts');
         setDocuments(response.data);
         console.log("data from backend:",response.data)
       } catch (error) {
