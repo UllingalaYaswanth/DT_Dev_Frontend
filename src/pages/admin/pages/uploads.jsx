@@ -801,7 +801,7 @@ const handleOpen = (field) => {
   }
   
   try {
-      const response = await axios.post('https://dt-dev-backend.onrender.com/api/form/submit', formData, {
+      const response = await axios.post('https://dt-dev-backend.onrender.com/api/forms/submit', formData, {
           headers: { 'Content-Type': 'multipart/form-data' }
       });
       console.log('Data submitted successfully:', response.data);

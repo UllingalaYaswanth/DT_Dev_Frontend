@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import image3 from '../../../img/RealityCapture_UYRdFrq7Xq.png';
+
 
 const SubSection4 = ({ towerDetails }) => {
   const [data, setData] = useState([]); // Initialize with an empty array
@@ -78,7 +78,7 @@ const SubSection4 = ({ towerDetails }) => {
             <div className="mb-6 flex relative bg-white p-5 rounded-md">
               <div>
                 <h3 className="text-xl font-semibold mb-5 text-center">Site ID: {activeSiteData.siteID}</h3>
-                <img src={image3} alt="Site Visualization" />
+                <img src={activeSiteData.siteImagePath} alt="Site Visualization" />
                 {activeSiteData.operators && activeSiteData.operators.length > 0 ? (
                   <div className="mb-4 absolute top-20 left-0 right-0 z-10">
                     {activeSiteData.operators.map((operator, operatorIndex) => (

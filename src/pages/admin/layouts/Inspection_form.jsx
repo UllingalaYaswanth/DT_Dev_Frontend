@@ -71,21 +71,26 @@ const Uploads = () => {
     });
   };
 
-  const handleFileChange = (e, operatorIndex, section, index) => {
-    const file = e.target.files[0];
-    if (file) {
-      setFormData((prevData) => {
-        const updatedData = { ...prevData };
+
+  
+const handleFileChange = (e, operatorIndex = null, section = null, index = null) => {
+  const file = e.target.files[0];
+  if (file) {
+    setFormData((prevData) => {
+      const updatedData = { ...prevData };
+
+      if (operatorIndex !== null && section) {
+        // For operator-related files
         updatedData.operators[operatorIndex][section][index].imagePath = file; // Store file object in imagePath
-        return updatedData;
-      });
-    }
-  };
-  
+      } else if (section === 'siteImage') {
+        // For the tower image (site image)
+        updatedData.siteImagePath = file; // Store the file in siteImagePath
+      }
 
-
-
-  
+      return updatedData;
+    });
+  }
+};
 
 
   // Add a new operator
@@ -142,12 +147,17 @@ const Uploads = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     console.log(formData);
     const formDataToSubmit = new FormData();
   
     // Append the form fields
     formDataToSubmit.append('siteID', formData.siteID);
+  
+    // Append the site image if it exists
+    if (formData.siteImagePath) {
+      formDataToSubmit.append('siteImage', formData.siteImagePath); // Assuming the file is stored in siteImagePath
+    }
   
     // Handle operator data and file uploads
     formData.operators.forEach((operator) => {
@@ -168,16 +178,21 @@ const Uploads = () => {
     });
   
     try {
-      const response = await axios.post('https://dt-dev-backend.onrender.com/api/forms/ins-submit', formDataToSubmit, {
-        headers: {
-          'Content-Type': 'multipart/form-data', // This is necessary for file uploads
-        },
-      });
+      const response = await axios.post(
+        'https://dt-dev-backend.onrender.com/api/forms/ins-submit',
+        formDataToSubmit,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data', // This is necessary for file uploads
+          },
+        }
+      );
       console.log('Form submitted successfully', response.data);
     } catch (error) {
       console.error('Error submitting form', error);
     }
   };
+  
 
  
   return (
@@ -191,6 +206,22 @@ const Uploads = () => {
           value={formData.siteID}
           onChange={(e) => setFormData({ ...formData, siteID: e.target.value })}
         />
+        
+          <label className="font-semibold">Tower Image</label>
+              <input
+        type="file"
+        name="siteImage"
+        onChange={(e) => handleFileChange(e, null, 'siteImage')}
+        className="ml-4"
+      />
+      {formData.siteImagePath && (
+        <img
+          src={formData.siteImagePath}
+          alt="Site Image"
+          className="ml-2"
+          style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px' }}
+        />
+      )}
       </div>
 
       {/* Operators */}
