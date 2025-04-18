@@ -10,6 +10,7 @@ import {
   Card,
 } from "@material-tailwind/react";
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 import { useNavigate } from "react-router-dom";
 import CloseIcon from '@mui/icons-material/Close';
@@ -87,14 +88,17 @@ export function Uploads() {
         timeout: 30 * 60 * 1000,
       });
       setMessage("Files uploaded successfully!");
+      toast.success('Form submitted successfully!');
       setUploadProgress(100);
       setEstimatedTime(0);
     } catch (error) {
       if (axios.isCancel(error)) {
         setMessage("Upload cancelled.");
+        toast.error('Something went wrong!');
       } else {
         console.error(error);
         setMessage("Error uploading files.");
+        toast.error('Something went wrong!');
       }
     } finally {
       setIsUploading(false);
@@ -898,7 +902,7 @@ const handleOpen = (field) => {
           </Typography>
           <button className="fixed absolute justify-between right-10 top-4 px-2 py-1 items-center bg-gray-200 hover:bg-red-600 hover:text-white text-gray-600 rounded-[100%]" onClick={handleClose}><span ><CloseIcon className="mb-1"/></span></button>
         </DialogHeader>
-        <Inspection_form/>
+        <Inspection_form closeDialog={() => setInspection(false)}/>
       </Dialog>
     </div>
     </div>

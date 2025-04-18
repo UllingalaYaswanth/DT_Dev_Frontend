@@ -19,18 +19,22 @@ import Excel from './pages/admin/layouts/Excel';
 // Auth Component
 import SignIn from './auth/SignIn';
 
+// Toast Notifications
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const getUserRole = () => {
-  // This should ideally be replaced with logic that fetches the role of the user
   return localStorage.getItem('userRole'); // e.g., "admin" or "operator"
-  
 };
 
 function App() {
-  const userRole = getUserRole(); // Get the user role (e.g., admin or operator)
-  
+  const userRole = getUserRole();
 
   return (
     <BrowserRouter>
+      {/* 🔔 Toast Container renders globally for all pages */}
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar closeOnClick pauseOnHover />
+      
       <Routes>
         <Route path="/" element={<SignIn />} />
 
@@ -38,7 +42,7 @@ function App() {
         {userRole === 'admin' && (
           <Route path="/admin/home" element={<LayoutAdmin />}>
             <Route index element={<HomeAdmin />} />
-            <Route path="/admin/home/towers" element={<TowersAdmin />}/>
+            <Route path="/admin/home/towers" element={<TowersAdmin />} />
             <Route path="/admin/home/uploads" element={<Uploads />} />
             <Route path="/admin/home/inspection" element={<Inspection />} />
             <Route path="/admin/home/locations" element={<Locations />} />
@@ -57,7 +61,7 @@ function App() {
             <Route path="/operator/home/locations" element={<Locations />} />
             <Route path="*" element={<HomeOperator />} />
           </Route>
-        )}`
+        )}
       </Routes>
     </BrowserRouter>
   );

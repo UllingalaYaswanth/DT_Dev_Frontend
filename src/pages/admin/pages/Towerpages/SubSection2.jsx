@@ -6,11 +6,10 @@ import {
   CardBody,
 } from "@material-tailwind/react";
 import towerImage from '../../../img/tower.png';
-import layout from '../../../img/layout.png';
+import layout from '../../../img/bsnl-ANTEENALAYOUT.png';
 import swing from '../../../img/swing.png';
 import mount from '../../../img/bsnl-mount.png'
 import mount1 from '../../../img/mountssector.png'
-import * as OV from 'online-3d-viewer';
 
 export function SubSection2({ goBack, towerDetails  }) {
   if (!towerDetails) return err;
@@ -108,8 +107,8 @@ export function SubSection2({ goBack, towerDetails  }) {
               </table>
             </Card>
             <Card className="p-4 h-auto">
-              <Typography variant="h6" className="text-center text-red-400">Antenna Layout ( As-Build )</Typography>
-              <img src={layout} className="w-[50%] mx-auto my-3"></img>
+              <Typography variant="h6" className="text-center text-red-400">Antenna Layout ( As-Built )</Typography>
+              <img src={layout} className="w-[50%] h-[42%] mx-auto my-3"></img>
               <table className="mt-4">
                 <thead>
                     <tr className="bg-gray-100 text-xs">

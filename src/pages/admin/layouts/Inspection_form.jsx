@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 
-const Uploads = () => {
+const Uploads = ({closeDialog }) => {
   const [formData, setFormData] = useState({
     siteID: '',
     operators: [
@@ -188,8 +189,11 @@ const handleFileChange = (e, operatorIndex = null, section = null, index = null)
         }
       );
       console.log('Form submitted successfully', response.data);
+      toast.success('Form submitted successfully!');
+      closeDialog();
     } catch (error) {
       console.error('Error submitting form', error);
+      toast.error('Something went wrong while submitting.');
     }
   };
   
