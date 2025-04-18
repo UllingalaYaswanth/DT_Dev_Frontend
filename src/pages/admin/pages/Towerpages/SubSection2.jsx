@@ -8,7 +8,7 @@ import {
 import towerImage from '../../../img/tower.png';
 import layout from '../../../img/layout.png';
 import swing from '../../../img/swing.png';
-import mount from '../../../img/mounts.jpg'
+import mount from '../../../img/bsnl-mount.png'
 import mount1 from '../../../img/mountssector.png'
 import * as OV from 'online-3d-viewer';
 
@@ -51,9 +51,9 @@ export function SubSection2({ goBack, towerDetails  }) {
   ]
 
   const msA = [
-    {mark : 'P1', type: 'Pipe' , size: '2.8 " OD', len: towerDetails.mounts.sectorA.memberSchedule.p1Length},
-    {mark : 'P2', type: 'Pipe' , size: '2 " OD', len: towerDetails.mounts.sectorA.memberSchedule.p1Length},
-    {mark : 'P3', type: 'Pipe' , size: '2.8 " OD', len: '8.0'},
+    {mark : 'P1', type: 'Pipe' , size: '2.8 " OD', len: towerDetails.mounts.sectorA.memberSchedule.p1Length || '5.1'},
+    {mark : 'P2', type: 'Pipe' , size: '2 " OD', len: towerDetails.mounts.sectorA.memberSchedule.p1Length || "7.3"},
+    {mark : 'P3', type: 'Pipe' , size: '2.8 " OD', len: ' 5.8'},
   ]
 
   const Dim = [

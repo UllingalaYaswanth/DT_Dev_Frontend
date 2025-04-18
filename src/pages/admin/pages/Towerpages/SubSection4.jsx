@@ -78,9 +78,9 @@ const SubSection4 = ({ towerDetails }) => {
             <div className="mb-6 flex relative bg-white p-5 rounded-md">
               <div>
                 <h3 className="text-xl font-semibold mb-5 text-center">Site ID: {activeSiteData.siteID}</h3>
-                <img src={activeSiteData.siteImagePath} alt="Site Visualization" />
+                <img src={activeSiteData.siteImagePath} alt="Site Visualization" className='w-[325px]' />
                 {activeSiteData.operators && activeSiteData.operators.length > 0 ? (
-                  <div className="mb-4 absolute top-20 left-0 right-0 z-10">
+                  <div className="mb-4 absolute top-28 left-0 right-0 z-10">
                     {activeSiteData.operators.map((operator, operatorIndex) => (
                       <button
                         key={operatorIndex}
@@ -91,6 +91,7 @@ const SubSection4 = ({ towerDetails }) => {
                           borderWidth: '2px',
                           left: '',
                           right: '0',
+    
                           marginLeft: '2%',
                         }}
                         className={`text-white text-sm h-[60px] w-[300px] px-4 py-2 rounded-md m-2 flex 

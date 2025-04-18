@@ -172,7 +172,7 @@ const GLBModel = ({ url }) => {
 
 export function SubSection1({ towerDetails  }) {
 
-  const modelUrl = "https://digitaltwin-data.s3.ap-south-1.amazonaws.com/glb/KNTYS00322A_Model_2.glb";
+  const modelUrl = "https://digitaltwin-data.s3.ap-south-1.amazonaws.com/glb/bsnl.glb";
 
   if (!towerDetails) return err;
   console.log("tower details:",towerDetails)
@@ -197,7 +197,7 @@ export function SubSection1({ towerDetails  }) {
           </div>
              <div className=" border-2 p-3">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d9540.195161595973!2d83.31283792915833!3d17.733152090034732!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTfCsDQzJzUzLjciTiA4M8KwMTknMDYuOSJF!5e1!3m2!1sen!2sin!4v1726925463570!5m2!1sen!2sin"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1167.3481039629428!2d83.40029266962232!3d17.9876766744936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a3be3002238161d%3A0x24335517f4ba236b!2sJami%20srinivas!5e1!3m2!1sen!2sin!4v1744973226106!5m2!1sen!2sin"
                 width="100%"
                 height="500"
                 style={{ border: 0 }}
@@ -206,7 +206,8 @@ export function SubSection1({ towerDetails  }) {
                 referrerPolicy="no-referrer-when-downgrade"
                 title="Google Maps Location"
               ></iframe>
-            </div>
+             {/* <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1167.3481039629428!2d83.40029266962232!3d17.9876766744936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a3be3002238161d%3A0x24335517f4ba236b!2sJami%20srinivas!5e1!3m2!1sen!2sin!4v1744973226106!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> */}
+             </div>
           </Card>
         </div>
        
